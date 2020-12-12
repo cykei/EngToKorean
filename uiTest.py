@@ -14,8 +14,7 @@ class MyApp(QWidget):
         btn.clicked.connect(QCoreApplication.instance().quit)
 
         self.setWindowTitle("EngToKorean")
-        self.resize(700,250)
-        self.move(300,300)
+        self.setGeometry(300,300,700,250)
         self.show()
 
 if __name__ == '__main__':
