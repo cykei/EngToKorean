@@ -1,6 +1,6 @@
 import sys
-from PyQt5.QtWidgets import QApplication, QPushButton, QMainWindow, QAction, qApp
-
+from PyQt5.QtWidgets import QApplication, QPushButton, QMainWindow, QAction, qApp, QWidget, QDesktopWidget
+from PyQt5.QtGui import QIcon
 class MyApp(QMainWindow):
     def __init__(self):
         super().__init__()
@@ -35,8 +35,15 @@ class MyApp(QMainWindow):
 
         ## 전체 창
         self.setWindowTitle("EngToKorean")
-        self.setGeometry(300,300,700,250)
+        self.resize(700,250)
+        self.center()
         self.show()
+
+    def center(self):
+        qr = self.frameGeometry() #창의 위치와 크기정보를 가져온다.
+        cp = QDesktopWidget().availableGeometry().center() #센터위치 파악
+        qr.moveCenter(cp) #창의 프레임을 센터 위치로 이동
+        self.move(qr.topLeft()) # 현재 창 전부를 프레임이 있는 곳으로 이동
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
