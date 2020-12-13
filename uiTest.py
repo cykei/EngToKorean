@@ -12,6 +12,7 @@ class MyApp(QMainWindow):
         self.copy_button = QPushButton("copy", self)
         self.reset_button = QPushButton("reset", self)
         self.copy_button.clicked.connect(self.copyText)
+        self.reset_button.clicked.connect(self.resetText)
         self.body_boxlayout()
 
 
@@ -74,6 +75,9 @@ class MyApp(QMainWindow):
         lineText = self.text_edit.text()
         pyperclip.copy(lineText)
         self.text_edit.selectAll()
+
+    def resetText(self):
+        self.text_edit.clear()
 
 if __name__ == '__main__':
     start = time.time()
