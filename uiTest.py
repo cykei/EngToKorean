@@ -3,6 +3,7 @@ import time
 import pyperclip
 
 from PyQt5.QtWidgets import *
+from PyQt5.QtCore import Qt
 
 class MyApp(QMainWindow):
     def __init__(self):
@@ -30,6 +31,7 @@ class MyApp(QMainWindow):
         filemenu.addAction(exitAction)
 
         aboutAction = QAction('About', self)
+        aboutAction.triggered.connect(self.showAbout)
 
         helpmenu = menubar.addMenu('&Help')
         helpmenu.addAction(aboutAction)
@@ -78,6 +80,20 @@ class MyApp(QMainWindow):
 
     def resetText(self):
         self.text_edit.clear()
+
+    def showAbout(self, event):
+        info = "copyright@cykei\n email : kelle111@naver.com\n version: 1.0.0"
+        dialog = QDialog(self)
+        text = QLabel(info)
+        text.setAlignment(Qt.AlignCenter)
+
+        layout = QVBoxLayout()
+        layout.addWidget(text)
+
+        dialog.setLayout(layout)
+
+        dialog.resize(300,300)
+        dialog.show()
 
 if __name__ == '__main__':
     start = time.time()
