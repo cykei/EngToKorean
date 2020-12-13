@@ -1,5 +1,6 @@
 import sys
 import time
+import pyperclip
 
 from PyQt5.QtWidgets import *
 
@@ -7,7 +8,12 @@ class MyApp(QMainWindow):
     def __init__(self):
         super().__init__()
         self.initUI()
+        self.text_edit = QLineEdit(self)
+        self.copy_button = QPushButton("copy", self)
+        self.reset_button = QPushButton("reset", self)
+        self.copy_button.clicked.connect(self.copyText)
         self.body_boxlayout()
+
 
     def initUI(self):
         ## 메뉴바
@@ -43,14 +49,15 @@ class MyApp(QMainWindow):
         self.move(qr.topLeft())
 
     def body_boxlayout(self):
+
         hbox_input = QHBoxLayout()
         hbox_input.addWidget(QLabel('Text:'))
-        hbox_input.addWidget(QLineEdit())
+        hbox_input.addWidget(self.text_edit)
 
         hbox_button = QHBoxLayout()
         hbox_button.addStretch(1)
-        hbox_button.addWidget(QPushButton("paste"))
-        hbox_button.addWidget(QPushButton("reset"))
+        hbox_button.addWidget(self.copy_button)
+        hbox_button.addWidget(self.reset_button)
         hbox_button.addStretch(1)
 
         vbox = QVBoxLayout()
@@ -62,6 +69,11 @@ class MyApp(QMainWindow):
         widget = QWidget()
         widget.setLayout(vbox)
         self.setCentralWidget(widget)
+
+    def copyText(self):
+        lineText = self.text_edit.text()
+        pyperclip.copy(lineText)
+        self.text_edit.selectAll()
 
 if __name__ == '__main__':
     start = time.time()
