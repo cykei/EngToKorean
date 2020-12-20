@@ -1,24 +1,28 @@
-
+import sys
+from queue import Queue
 _CHOSUNG = [
-      'ㄱ', 'ㄲ', 'ㄴ', 'ㄷ', 'ㄸ',
-      'ㄹ', 'ㅁ', 'ㅂ', 'ㅃ', 'ㅅ',
-      'ㅆ', 'ㅇ', 'ㅈ', 'ㅉ', 'ㅊ',
-      'ㅋ', 'ㅌ', 'ㅍ', 'ㅎ']
+      'r', 'R', 's', 'e', 'E',
+      'f', 'a', 'q', 'Q', 't',
+      'T', 'd', 'w', 'W', 'c',
+      'z', 'x', 'v', 'g']
 
 _JUNGSUNG = [
-      'ㅏ', 'ㅐ', 'ㅑ', 'ㅒ', 'ㅓ',
-      'ㅔ', 'ㅕ', 'ㅖ', 'ㅗ', 'ㅘ',
-      'ㅙ', 'ㅚ', 'ㅛ', 'ㅜ', 'ㅝ',
-      'ㅞ', 'ㅟ', 'ㅠ', 'ㅡ', 'ㅢ',
-      'ㅣ']
+      'k', 'o', 'i', 'O', 'j',
+      'p', 'u', 'P', 'h', 'hk',
+      'ho', 'hl', 'y', 'n', 'nj',
+      'np', 'nl', 'b', 'm', 'ml',
+      'l']
 
 _JONGSUNG = [
-      '', 'ㄱ', 'ㄲ', 'ㄳ', 'ㄴ',
-      'ㄵ', 'ㄶ', 'ㄷ', 'ㄹ', 'ㄺ',
-      'ㄻ', 'ㄼ', 'ㄽ', 'ㄾ', 'ㄿ',
-      'ㅀ', 'ㅁ', 'ㅂ', 'ㅄ', 'ㅅ',
-      'ㅆ', 'ㅇ', 'ㅈ', 'ㅊ', 'ㅋ',
-      'ㅌ', 'ㅍ', 'ㅎ']
+      '', 'r', 'R', 'rt', 's',
+      'sw', 'sg', 'e', 'f', 'fr',
+      'fa', 'fq', 'ft', 'fx', 'fb',
+      'fg', 'a', 'q', 'qt', 't',
+      'T', 'd', 'w', 'c', 'z',
+      'x', 'v', 'g']
+
+ZAUM = ['q','w','e','r','t','a','s','d','f','g','z','x','c','v','Q','W','E','R','T']
+MOUM = ['y','u','i','o','p','h','j','k','l','n','m','b','O','P']
 
 def printUnicode(decimal):
     hangulNumber = decimal
@@ -48,10 +52,41 @@ if __name__ == '__main__':
     mapping(CHOSUNG,_CHOSUNG)
     mapping(JUNGSUNG,_JUNGSUNG)
     mapping(JONGSUNG,_JONGSUNG)
-    print(CHOSUNG['ㄷ'])
+
+    # while(True):
+    #     char = sys.read()
+    #     if(char!= None):
+    #         print(char)
+
+    # while True:
+    #     try:
+    #         print(input())
+    #     except EOFError:
+    #         break
+
+    # while True:
+    #     c1 = chr(input())
+    #     print(c1)
+
+    # while True:
+    #     c = sys.stdin.read(1)
+    #     print(c)
 
     printUnicode(ord(u'ㄱ'))
     printUnicode(ord(u'ㅏ'))
     printUnicode(ord(u'각'))
 
-    printCombinedLetter('ㅅ','ㅗ','ㅇ')
+    printCombinedLetter('r','k','rt')
+
+    while True:
+        c = input()
+        beforeIsMoum = False
+        result=""
+        character = Queue()
+        for i in c:
+            if beforeIsMoum is False and i in ZAUM:
+                character.put(i)
+
+
+
+   # printCombinedLetter('ㅅ','ㅗ','ㅇ')
