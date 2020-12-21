@@ -21,12 +21,11 @@ _JONGSUNG = [
       'T', 'd', 'w', 'c', 'z',
       'x', 'v', 'g']
 _LETTER = [
-    'r','R','rt','s','sw','sg','e','E',
-    'f','fr','fa','fq','ft','fx','fv','fg',
-    'a','q','Q','qt','t','T','d','w','W',
-    'c','z','x','v',
-    'k','o','i','O','j','p','h','hk','ho','hl','y',
-    'n','nj','np','nl','b','m','ml','l'
+    'r','R','rt','s','sw','sg','e','E','f','fr',
+    'fa','fq','ft','fx','fv','fg','a','q','Q','qt',
+    't','T','d','w','W','c','z','x','v','g',
+    'k','o','i','O','j','p','u','P','h','hk',
+    'ho','hl','y','n','nj','np','nl','b','m','ml','l'
 ]
 ZAUM = ['q','w','e','r','t','a','s','d','f','g','z','x','c','v','Q','W','E','R','T']
 MOUM = ['y','u','i','o','p','h','j','k','l','n','m','b','O','P']
@@ -121,9 +120,13 @@ def getKoreanString(englishString):
         elif qsize is 2 and isJungsung(front):
             chosung = one_letter.get()
             jungsung = one_letter.get()
-            jungsung += front
-            one_letter.put(chosung)
-            one_letter.put(jungsung)
+            combinedJungsung = jungsung+front
+            if isJungsung(combinedJungsung):
+                one_letter.put(chosung)
+                one_letter.put(combinedJungsung)
+            else:
+                korean_str += getCombinedLetter(chosung,jungsung,'')
+                korean_str += getLetter(front)
         elif qsize is 3 and isJungsung(front): # 안 | ㅏ
             korean_str += getCombinedLetter(one_letter.get(), one_letter.get(), '') # 아
             one_letter.put(front) # 나 |
@@ -174,7 +177,7 @@ if __name__ == '__main__':
     mapping(LETTER, _LETTER)
 
     #korean_str = printCombinedLetter('r','k','rt')
-    korean_str = getKoreanString("dkssud! dhk!")
+    korean_str = getKoreanString("dmgllglgld tlatlagkekd")
 
     # comlete list ###########################################3
     # dkssudgktpdy 안녕하세요
@@ -183,5 +186,6 @@ if __name__ == '__main__':
     # dhdh tlsrlgkekd zz ! dnghkd zifmr ! 오오 신기하당 ㅋㅋ ! 우홍 캬륵 !
     # dhdhdzzz! 오옹ㅋㅋㅋ!
     # dksgdkfrjsepdy! 않알건데요!
-    # dkssud! dhk! 안녕! 오!
+    # dkssud! dhk! 안녕! 와!
+    # dmgllglgld tlatlagkekd 으히ㅣ히힝 심심하당 -> 에러
     print(korean_str)
