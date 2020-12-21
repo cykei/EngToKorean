@@ -118,6 +118,12 @@ def getKoreanString(englishString):
             one_letter.put(front)
         elif qsize is 2 and isChosung(front): # 아 | ㄴ
             one_letter.put(front)
+        elif qsize is 2 and isJungsung(front):
+            chosung = one_letter.get()
+            jungsung = one_letter.get()
+            jungsung += front
+            one_letter.put(chosung)
+            one_letter.put(jungsung)
         elif qsize is 3 and isJungsung(front): # 안 | ㅏ
             korean_str += getCombinedLetter(one_letter.get(), one_letter.get(), '') # 아
             one_letter.put(front) # 나 |
@@ -143,9 +149,12 @@ def getKoreanString(englishString):
     #print("left one_letter size : ",one_letter.qsize())
     # for i in range(one_letter.qsize()):
     #     print(one_letter.get())
-    if one_letter.qsize() is 1:
+
+    # 이밑에는 아직 남아있을때 출력하는건데... 만약 하나의 단어를 완성하지 못할시에는 이전에 이미 조건 1에 걸려서 내보내졌을 테니까
+    # 조건 2, 3에서 첫번재가 초성이고 두번째가 중성인지 체크할 필요는 없다. 그 외의 경우는 들어오지 않을테니까.
+    if one_letter.qsize() is 1: # 조건 1
         korean_str += getLetter(one_letter.get())
-    elif one_letter.qsize() is 2:
+    elif one_letter.qsize() is 2: #조건 2
         korean_str += getCombinedLetter(one_letter.get(), one_letter.get(), '')
     elif one_letter.qsize() is 3:
         korean_str += getCombinedLetter(one_letter.get(), one_letter.get(), one_letter.get())
@@ -165,7 +174,7 @@ if __name__ == '__main__':
     mapping(LETTER, _LETTER)
 
     #korean_str = printCombinedLetter('r','k','rt')
-    korean_str = getKoreanString("dksgdkfrjsepdy!")
+    korean_str = getKoreanString("dkssud! dhk!")
 
     # comlete list ###########################################3
     # dkssudgktpdy 안녕하세요
@@ -174,4 +183,5 @@ if __name__ == '__main__':
     # dhdh tlsrlgkekd zz ! dnghkd zifmr ! 오오 신기하당 ㅋㅋ ! 우홍 캬륵 !
     # dhdhdzzz! 오옹ㅋㅋㅋ!
     # dksgdkfrjsepdy! 않알건데요!
+    # dkssud! dhk! 안녕! 오!
     print(korean_str)
