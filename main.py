@@ -155,6 +155,8 @@ def getKoreanString(englishString):
                 else:  # 옹 | ㅋ | ㅋ
                     korean_str += getCombinedLetter(chosung, jungsung, jonsung)
                     one_letter.put(front)
+            else:
+                one_letter.put(front)
         else:
             if qsize is 1:
                 korean_str += getLetter(one_letter.get())
@@ -172,7 +174,8 @@ def getKoreanString(englishString):
         korean_str += getCombinedLetter(one_letter.get(), one_letter.get(), '')
     elif one_letter.qsize() is 3:
         korean_str += getCombinedLetter(one_letter.get(), one_letter.get(), one_letter.get())
-
+    elif one_letter.qsize() is 4:
+        korean_str += getCombinedLetter(one_letter.get(), one_letter.get(), (one_letter.get()+one_letter.get()))
     return korean_str
 
 
@@ -189,7 +192,7 @@ if __name__ == '__main__':
     mapping(LETTER, _LETTER)
 
     # korean_str = printCombinedLetter('r','k','rt')
-    korean_str = getKoreanString("dmgllglgld tlatlagkekd")
+    korean_str = getKoreanString("Rifmrt")
     print(korean_str)
 
     while True:
@@ -205,4 +208,5 @@ if __name__ == '__main__':
     # dhdhdzzz! 오옹ㅋㅋㅋ!
     # dksgdkfrjsepdy! 않알건데요!
     # dkssud! dhk! 안녕! 와!
-    # dmgllglgld tlatlagkekd 으히ㅣ히힝 심심하당 -> 에러
+    # dmgllglgld tlatlagkekd 으히ㅣ히힝 심심하당
+    # Rifmrt = 꺄륷 (지금은 꺄륵)
